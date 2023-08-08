@@ -13,10 +13,14 @@
         box-sizing: border-box;
       }
     </style>
-    <link rel="stylesheet" href="../styles.css" />
+    
   </head>
 
   <body>
+
+    <label for="search">Search by contact name</label>
+    <input id="search" type="text">
+    <button>Search</button>
 
     <section class="preview">
 
@@ -26,8 +30,10 @@
 
   </body>
   <script>
-    const name = 'Mustafa';
-    const para = document.createElement('p');
+    const name = "Eric";
+    const para = document.createElement('p'); //Creates a paragraph element
+    const btn = document.querySelector("button")
+    const input = document.querySelector("input")
 
     const phonebook = [
       { name : 'Chris', number : '1549' },
@@ -40,11 +46,41 @@
       { name : 'Jada', number : '2282' },
     ]
 
-    // Add your code here
+    function searchPhoneBook() {
+      const searchName = input.value.toLowerCase();
+      input.value = "";
+      input.focus();
+      para.textContent = "";
+      let matchFound = false;
+      let i = 0;
+      while (i < phonebook.length) {
+        if (phonebook[i].name.toLowerCase() === searchName) {
+          para.textContent = `${phonebook[i].name}'s phone number is ${phonebook[i].number}.`
+          matchFound = true;
+          break;
+        
+        }
+        i++; 
+      }
+
+        if (!matchFound) {
+          para.textContent = "Your input does not match any name in the phonebook."
+        }
+      }
+    
+    btn.addEventListener("click", searchPhoneBook);
+    input.addEventListener("keydown", (event) => {
+      if (event.keyCode === 13) {
+        btn.click();
+      }
+    })
+
+      
 
     // Don't edit the code below here!
-    const section = document.querySelector('section');
-    section.appendChild(para);
+    const section = document.querySelector('section'); //.querySelector finds the first "section" element
+    section.appendChild(para); //After finding the first "section" element, it puts the created paragraph element and 
+                                    //puts it under the "section" element.
   </script>
 
 </html>
